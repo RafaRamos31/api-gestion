@@ -10,6 +10,10 @@ export function addRolesEndpoints(connection, app, upload){
     });
   })
 
+  app.get("/api/rol", async (request, response) => {
+    response.status(200).json('testing');
+  })
+
   app.get("/api/roles/:id", async (request, response) => {
     const {id} = request.params;
 
