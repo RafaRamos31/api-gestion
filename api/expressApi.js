@@ -9,6 +9,7 @@ import { addRolesEndpoints } from "../src/endpoints/roles.js";
 import { addTiposOrganizacionesEndpoints } from "../src/endpoints/tipos_organizaciones.js";
 import connection from "./db.js";
 import express from "express";
+import multer from "multer";
 
 /**
  * Separa la logica de definicion de rutas y su respuesta a peticiones REST
@@ -16,11 +17,9 @@ import express from "express";
  * @returns El mismo objeto de servidor pero con las rutas REST definidas
  */
 export function addRestDirections(app) {
+  const upload = new multer();
 
-  app.use(express.urlencoded());
-  app.use(express.json());   
-
-  app = addRolesEndpoints(connection, app);
+  app = addRolesEndpoints(connection, app, upload);
   app = addComponentesEndpoints(connection, app);
   app = addDepartamentosEndpoints(connection, app);
   app = addMunicipiosEndpoints(connection, app);

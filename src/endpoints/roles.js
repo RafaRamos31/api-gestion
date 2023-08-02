@@ -1,4 +1,4 @@
-export function addRolesEndpoints(connection, app){
+export function addRolesEndpoints(connection, app, upload){
 
   app.get("/api/roles", async (request, response) => {
     connection.query("SELECT * FROM Roles", (error, results) => {
@@ -22,7 +22,7 @@ export function addRolesEndpoints(connection, app){
     });
   })
 
-  app.post("/api/roles", async (request, response) => {
+  app.post("/api/roles", upload.any(), async (request, response) => {
     const nombre = request.body.nombre;
 
     connection.query('INSERT INTO Roles (nombre) VALUES ( ? )', [ nombre ] , (error, results) => {
@@ -34,12 +34,12 @@ export function addRolesEndpoints(connection, app){
     });
   })
 
-  app.put("/api/roles", async (request, response) => {
+  app.put("/api/roles", upload.any(), async (request, response) => {
 
-    const id_rol = request.body.id_rol;
+    const idRol = request.body.idRol;
     const nombre = request.body.nombre;
 
-    connection.query('UPDATE Roles SET nombre = ? WHERE ID_Rol = ? ', [ nombre, id_rol ] , (error, results) => {
+    connection.query('UPDATE Roles SET nombre = ? WHERE ID_Rol = ? ', [ nombre, idRol ] , (error, results) => {
       if (error) {
         response.status(500).json(error);
       } else {
@@ -47,6 +47,7 @@ export function addRolesEndpoints(connection, app){
       }
     });
   })
+
 
   app.delete("/api/roles/:id", async (request, response) => {
     const {id} = request.params;
