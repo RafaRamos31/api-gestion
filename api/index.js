@@ -1,6 +1,6 @@
 import express from "express";
 import { addRestDirections } from "./expressApi.js";
-import "./db.js";
+
 
 //Se inicializa un servidor Express para la navegacion entre rutas al acceder a la API
 let app = express();

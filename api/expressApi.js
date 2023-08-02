@@ -1,3 +1,15 @@
+import { addAldeasEndpoints } from "../src/endpoints/aldeas.js";
+import { addCargosEndpoints } from "../src/endpoints/cargos.js";
+import { addCaseriosEndpoints } from "../src/endpoints/caserios.js";
+import { addComponentesEndpoints } from "../src/endpoints/componentes.js";
+import { addDepartamentosEndpoints } from "../src/endpoints/departamentos.js";
+import { addMunicipiosEndpoints } from "../src/endpoints/municipios.js";
+import { addOrganizacionesEndpoints } from "../src/endpoints/organizaciones.js";
+import { addRolesEndpoints } from "../src/endpoints/roles.js";
+import { addTiposOrganizacionesEndpoints } from "../src/endpoints/tipos_organizaciones.js";
+import connection from "./db.js";
+import express from "express";
+
 /**
  * Separa la logica de definicion de rutas y su respuesta a peticiones REST
  * @param {express} app Un servidor inicializado de express
@@ -5,9 +17,18 @@
  */
 export function addRestDirections(app) {
 
-  app.get("/api/test", (request, response) => {
-    response.status(200).json({ param: 'hola' });
-  })
+  app.use(express.urlencoded());
+  app.use(express.json());   
+
+  app = addRolesEndpoints(connection, app);
+  app = addComponentesEndpoints(connection, app);
+  app = addDepartamentosEndpoints(connection, app);
+  app = addMunicipiosEndpoints(connection, app);
+  app = addAldeasEndpoints(connection, app);
+  app = addCaseriosEndpoints(connection, app);
+  app = addTiposOrganizacionesEndpoints(connection, app);
+  app = addOrganizacionesEndpoints(connection, app);
+  app = addCargosEndpoints(connection, app);
 
   return app;
 }
