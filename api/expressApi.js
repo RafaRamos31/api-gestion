@@ -7,7 +7,7 @@ import { addMunicipiosEndpoints } from "../src/endpoints/municipios.js";
 import { addOrganizacionesEndpoints } from "../src/endpoints/organizaciones.js";
 import { addRolesEndpoints } from "../src/endpoints/roles.js";
 import { addTiposOrganizacionesEndpoints } from "../src/endpoints/tipos_organizaciones.js";
-import connection from "./db.js";
+import {initConnection} from "./db.js";
 import express from "express";
 import multer from "multer";
 
@@ -19,15 +19,15 @@ import multer from "multer";
 export function addRestDirections(app) {
   const upload = new multer();
 
-  app = addRolesEndpoints(connection, app, upload);
-  app = addComponentesEndpoints(connection, app);
-  app = addDepartamentosEndpoints(connection, app);
-  app = addMunicipiosEndpoints(connection, app);
-  app = addAldeasEndpoints(connection, app);
-  app = addCaseriosEndpoints(connection, app);
-  app = addTiposOrganizacionesEndpoints(connection, app);
-  app = addOrganizacionesEndpoints(connection, app);
-  app = addCargosEndpoints(connection, app);
+  app = addRolesEndpoints(initConnection, app, upload);
+  /*app = addComponentesEndpoints(initConnection, app);
+  app = addDepartamentosEndpoints(initConnection, app);
+  app = addMunicipiosEndpoints(initConnection, app);
+  app = addAldeasEndpoints(initConnection, app);
+  app = addCaseriosEndpoints(initConnection, app);
+  app = addTiposOrganizacionesEndpoints(initConnection, app);
+  app = addOrganizacionesEndpoints(initConnection, app);
+  app = addCargosEndpoints(initConnection, app);*/
 
   return app;
 }
