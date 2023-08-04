@@ -1,7 +1,14 @@
 export function addRolesEndpoints(initConnection, app, upload){
 
   app.get("/api/roles", async (request, response) => {
-    const connection = await initConnection();
+    let connection
+    try {
+      connection = await initConnection();
+    } catch (error) {
+      response.status(500).json('' + error);
+      return
+    }
+
     try {
       const [results, fields] = await connection.query("SELECT * FROM Roles");
       response.status(200).json(results);
